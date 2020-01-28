@@ -38,11 +38,11 @@ import apprendreSQL.Controller.UtilitiesFactory;
 public class MainWindow extends JFrame implements ActionListener {
 
 	private static String os = System.getProperty("os.name");
-	private static final String URL = "https://graphviz.gitlab.io/_pages/Download/Download_windows.html";
+	private static final String URL = "https://github.com/bayad-ne/SQLschool.git";
 	private static final long serialVersionUID = 1L;
 	private WindowedUpperPanel windowedPanel;
 	private TablesView tablesView;
-	DiagramsView diagramsView;
+	private DiagramsView diagramsView;
 	private JSplitPane panelSpliter;
 	private JTabbedPane tabs;
 	private EventManager manager;
@@ -140,7 +140,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		JPanel viewPort = new JPanel();
 		viewPort.setLayout(new GridLayout(0, 1));
 		JButton link = new JButton();
-		link.setText("<html><font color=\"#8c00a1\"><U>Page Github du logiciel.</U></font></html>");
+		link.setText("<html><font color=\"#8c00a1\"><U>Page GitHub du logiciel.</U></font></html>");
 		link.setHorizontalAlignment(SwingConstants.CENTER);
 		link.setOpaque(true);
 		link.setBorderPainted(false);
