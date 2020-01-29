@@ -28,20 +28,19 @@ import apprendreSQL.Controller.EventManager;
  * 
  */
 
+@SuppressWarnings("serial")
 public class ExercisesPanel extends JPanel implements TreeSelectionListener {
 
-	private static String os = System.getProperty("os.name");
-	private static final long serialVersionUID = 1L;
+	private static final String os = System.getProperty("os.name");
+	private final String treeRootName = "Bases de données";
 	private String etat;
 	private JTree hierarchyView;
 	private ArrayList<DataBase> database;
 	private ArrayList<TreePath> treePaths;
 	private EventManager manager;
 	private DefaultMutableTreeNode top;
-	private final String treeRootName = "Bases de données";
-
+	
 	public ExercisesPanel(EventManager manager) {
-		super();
 		init(manager);
 	}
 
@@ -77,7 +76,7 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener {
 		treeScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		hierarchyView.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				doMouseClicked(me);
+				resetDatabase(me);
 			}
 		});
 		add(hierarchyView);
@@ -98,24 +97,25 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener {
 		DefaultMutableTreeNode databaseName = null;
 		DefaultMutableTreeNode exerciceName = null;
 		DefaultMutableTreeNode subjectName = null;
-		ArrayList<Question> exercicesList = manager.getQuestionsList();
+		ArrayList<Question> questionsList = manager.getQuestionsList();
 		Object[] subjectDB;
 
 		for (DataBase db : database) {
 			databaseName = new DefaultMutableTreeNode(db.getNameDatabase());
 			root.add(databaseName);
 
-			subjectDB = exercicesList.stream().filter((q) -> {
+			subjectDB = questionsList.stream().filter((q) -> {
 				return q.getDatabase().contentEquals(db.getNameDatabase());
 			}).map((q) -> q.getSubject()).distinct().toArray();
-			for (Object s : subjectDB) {
-				subjectName = new DefaultMutableTreeNode(s.toString());
+			
+			for (Object subject : subjectDB) {
+				subjectName = new DefaultMutableTreeNode(subject.toString());
 				databaseName.add(subjectName);
 
-				for (Question exercise : exercicesList) {
-					exerciceName = new DefaultMutableTreeNode(exercise.getTitleQuestion());
-					if (db.getNameDatabase().equals(exercise.getDatabase())) {
-						if (s.toString().equals(exercise.getSubject())) {
+				for (Question question : questionsList) {
+					exerciceName = new DefaultMutableTreeNode(question.getTitleQuestion());
+					if (db.getNameDatabase().equals(question.getDatabase())) {
+						if (subject.toString().equals(question.getSubject())) {
 							subjectName.add(exerciceName);
 						}
 					}
@@ -152,6 +152,8 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener {
 				manager.callQuestion(node.getParent().getParent().toString(), node.getParent().toString(),
 						node.toString());
 				manager.showEditor();
+				manager.clearInput();
+
 			} else {
 				dbName = node.toString();
 			}
@@ -225,21 +227,19 @@ public class ExercisesPanel extends JPanel implements TreeSelectionListener {
 	}
 
 	/**
-	 * Method that resets the connection.
+	 * Method that resets the database file
 	 * 
 	 * @param mouseEvent
 	 */
-	void doMouseClicked(MouseEvent mouseEvent) {
+	void resetDatabase(MouseEvent mouseEvent) {
 		TreePath treePath = hierarchyView.getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
 		treePaths.add(treePath);
 		if (treePath != null) {
 			if (treePaths.size() > 1 && !treePath.equals(treePaths.get(treePaths.size() - 2))) {
-				if (manager.getSelectedConnection() != null)
+				if (manager.getSelectedConnection() != null) {
 					manager.getSelectedConnection().resetDatabase();
-
-			} else {
+				}
 			}
-		} else {
 		}
 	}
 

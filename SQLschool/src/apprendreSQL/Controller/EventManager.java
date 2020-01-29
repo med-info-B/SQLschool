@@ -103,17 +103,20 @@ public class EventManager implements GetInformation {
 	 * This method is called when the "Exécuter" button is clicked.
 	 */
 	public static void callExecute() {
-		if (compteurrep != 4) {
-			mainWindow.setOutPut("");
-			String query = mainWindow.getInput();
-			query = query.replaceAll("\n", " ");
-			query = query.toString().trim();
-			mainWindow.setOutPut(ifCorrect(query) + "\n");
-		} else if (compteurrep == 4) {
+
+		clearOutput();
+		String query = mainWindow.getInput();
+		query = query.replaceAll("\n", " ");
+		query = query.toString().trim();
+		String text = ifCorrect(query);
+
+		if (compteurrep == 4) {
 			mainWindow.setOutPut("Vous avez fait 3 tentatives. Voilà la bonne réponse <br> " + answer
 					+ " <br> Essayez de l'écrire et de l'exécuter");
 			compteurrep = 1;
 
+		} else {
+			mainWindow.setOutPut(text + "\n");
 		}
 
 	}
@@ -127,7 +130,7 @@ public class EventManager implements GetInformation {
 	 */
 	public void callQuestion(String dbName, String sujetName, String exerciceName) {
 		compteurrep = 1;
-		mainWindow.setOutPut("");
+		clearOutput();
 		corrector.setHint(callHint());
 		int id = getIdExercise(dbName, sujetName, exerciceName, jsonManager);
 
@@ -183,6 +186,7 @@ public class EventManager implements GetInformation {
 
 	/**
 	 * Runs a query similar to '.tables'.
+	 * 
 	 * @param database target database
 	 * @return a list of Table objects present in the database
 	 */
@@ -236,6 +240,14 @@ public class EventManager implements GetInformation {
 
 	}
 
+	public static void clearOutput() {
+		mainWindow.setOutPut("");
+	}
+	
+	public void clearInput() {
+		mainWindow.setInput("");
+	}
+
 	public JsonManager getJsonManager() {
 		return jsonManager;
 	}
@@ -251,7 +263,7 @@ public class EventManager implements GetInformation {
 	public TreeMap<String, ConnectionSQLite> getConnectionsMap() {
 		return connectionsMap;
 	}
-	
+
 	public void populateTablesView(DataBase database) {
 		ArrayList<Table> tables = database.getTables();
 		if (!tables.isEmpty())
@@ -286,12 +298,12 @@ public class EventManager implements GetInformation {
 
 	public void showProgress() {
 		mainWindow.showProgress();
-		
+
 	}
 
 	public void hideProgress() {
 		mainWindow.hideProgress();
-		
+
 	}
 
 }

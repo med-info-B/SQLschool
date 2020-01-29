@@ -11,21 +11,19 @@ import javax.swing.ScrollPaneConstants;
 import apprendreSQL.Controller.EventManager;
 
 /**
- * 
  * This is the panel that holds both ExercisesPanel and EditorPanel.
  * 
  */
 
+@SuppressWarnings("serial")
 public class WindowedUpperPanel extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+	
 	private JSplitPane panelSpliter;
 	private ExercisesPanel exercisePanel;
 	private EditorPanel editorPanel;
 	private JScrollPane exercisesScrollPane, editorScrollPane;
 
 	public WindowedUpperPanel(EventManager manager) {
-		super();
 		init(manager);
 	}
 

@@ -151,7 +151,7 @@ public class DiagramUtils {
 	}
 
 	/**
-	 * Checks whether Graphviz is installed or not on the system.
+	 * Checks whether Graphviz is installed on the system.
 	 * 
 	 * @return true if Graphviz is installed, false otherwise
 	 */

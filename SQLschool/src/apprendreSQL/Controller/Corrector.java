@@ -26,9 +26,11 @@ public class Corrector {
 		listType.add("delete");
 
 	}
+
 	public String getHint() {
 		return hint;
 	}
+
 	public String getCommentaire() {
 		return comment;
 	}
@@ -46,7 +48,7 @@ public class Corrector {
 		type = "none";
 		comment = "";
 		long counter;
-    
+
 		inputUser = inputUser.replaceAll("\n", " ");
 		inputUser = inputUser.toString().trim();
 		if (!inputUser.isEmpty()) {
@@ -54,23 +56,28 @@ public class Corrector {
 			// checking the number of semicolons
 			counter = inputUser.chars().filter(ch -> ch == ';').count();
 			// checking to see if the semicolon is at the end
-			if (counter == 1 && inputUser.charAt(inputUser.length() - 2) != ';'
-					&& inputUser.charAt(inputUser.length() - 1) == ';') {
+			if (!inputUser.equals(";")) {
+				if (counter == 1 && inputUser.charAt(inputUser.length() - 2) != ';'
+						&& inputUser.charAt(inputUser.length() - 1) == ';') {
 
-				if (correction_simple(inputUser, right_Answer)) {
-					if (correction_table(inputUser, right_Answer, connection)) {
-						if (correction_result(inputUser, right_Answer, connection)) {
-							return true;
+					if (correction_simple(inputUser, right_Answer)) {
+						if (correction_table(inputUser, right_Answer, connection)) {
+							if (correction_result(inputUser, right_Answer, connection)) {
+								return true;
 
+							}
 						}
 					}
-				}
-			} else if (counter == 0) {
-				comment = comment + "Erreur: Pas de point virgule à la fin de votre requête." + "<br>";
-				return false;
+				} else if (counter == 0) {
+					comment = comment + "Erreur: Pas de point virgule à la fin de votre requête." + "<br>";
+					return false;
 
+				} else {
+					comment = comment + "Erreur: Plusieurs points virgules ou des caractères non valides." + "<br>";
+					return false;
+				}
 			} else {
-				comment = comment + "Erreur: Plusieurs points virgules ou des caractères non valides." + "<br>";
+				comment = "Rien à exécuter<br>";
 				return false;
 			}
 
@@ -654,7 +661,7 @@ public class Corrector {
 	 * @return the hint
 	 */
 	public String definehint(String goodanswer) {
-		type=findType(goodanswer);
+		type = findType(goodanswer);
 		String select = "SELECT [* (tout les champs) ou  DISTINCT ] [(column1, column2, column3,...columnN)]\n[FROM table-list]"
 				+ "\n" + "[WHERE expr]" + "\n" + "[ORDER BY expr]" + "\n";
 		String insert_into = "INSERT INTO TABLE_NAME [(column1, column2, column3,...columnN)]\n"
@@ -678,6 +685,7 @@ public class Corrector {
 		return hint;
 
 	}
+
 	public void setHint(String hint) {
 		this.hint = hint;
 	}

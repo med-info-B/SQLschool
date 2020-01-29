@@ -30,25 +30,23 @@ import apprendreSQL.Controller.EventManager;
  * prints out a preview of exercises subjects.
  * 
  */
+@SuppressWarnings("serial")
 public class EditorPanel extends JPanel {
 
-	private static final long serialVersionUID = 1L;
 	private static final int gap_1 = 250, gap_2 = 300;
 	private static final Font font = new Font("Arial", Font.PLAIN, 14);
-
 	private String etat;
 	private JTextArea input;
 	private JTextArea lines;
 	private JTextPane output;
 	private JButton submit;
-    private JButton hint;
+	private JButton hint;
 	private JTextArea exerciseOutput;
 	private Dimension prefferedDimension;
 	private JScrollPane outputScrollpane;
 	private JScrollPane inputScrollPane;
 
 	public EditorPanel() {
-		super();
 		init();
 	}
 
@@ -106,12 +104,12 @@ public class EditorPanel extends JPanel {
 				EventManager.callExecute();
 			}
 		});
-		hint = new JButton("Help");
+		hint = new JButton("Aide");
 		hint.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(EditorPanel.this,EventManager.callHint(),"Help",
+				JOptionPane.showMessageDialog(EditorPanel.this, EventManager.callHint(), "Help",
 						JOptionPane.PLAIN_MESSAGE);
 
 			}
@@ -172,7 +170,7 @@ public class EditorPanel extends JPanel {
 		theGrid.gridx = 1;
 		theGrid.gridy = 1;
 		add(outputScrollpane, theGrid);
-		
+
 		theGrid.gridx = 1;
 		theGrid.gridy = 2;
 		add(hint, theGrid);
@@ -183,6 +181,10 @@ public class EditorPanel extends JPanel {
 
 	public String getInput() {
 		return input.getText();
+	}
+
+	public void setInput(String string) {
+		this.input.setText(string);
 	}
 
 	public void setOutput(String output) {

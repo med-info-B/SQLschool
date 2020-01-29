@@ -28,8 +28,8 @@ import apprendreSQL.Controller.UtilitiesFactory;
  * 
  */
 
+@SuppressWarnings("serial")
 public class DiagramsView extends JPanel {
-	private static final long serialVersionUID = 1L;
 	private static final String URL = "https://graphviz.gitlab.io/_pages/Download/Download_windows.html";
 	private JPanel viewPort;
 	private JLabel relationalDiagram;
@@ -121,7 +121,7 @@ public class DiagramsView extends JPanel {
 	}
 
 	/**
-	 * Notifies the user for missing Graphviz installation and a link to the
+	 * Notifies the user for missing Graphviz installation and links to the
 	 * download page.
 	 */
 	void notifyMissingSoftware() {

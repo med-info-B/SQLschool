@@ -35,19 +35,19 @@ import apprendreSQL.Controller.UtilitiesFactory;
  * 
  */
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener {
 
-	private static String os = System.getProperty("os.name");
+	private static final String os = System.getProperty("os.name");
 	private static final String URL = "https://github.com/bayad-ne/SQLschool.git";
-	private static final long serialVersionUID = 1L;
+	private static final String title = "SQLschool";
+	private static final int gap = 50;
 	private WindowedUpperPanel windowedPanel;
 	private TablesView tablesView;
 	private DiagramsView diagramsView;
 	private JSplitPane panelSpliter;
 	private JTabbedPane tabs;
 	private EventManager manager;
-	private static final String title = "SQLschool";
-	private static final int gap = 50;
 
 	public MainWindow(EventManager manager) {
 		super(title);
@@ -184,6 +184,10 @@ public class MainWindow extends JFrame implements ActionListener {
 	public String getInput() {
 		return windowedPanel.getEditorPanel().getInput();
 
+	}
+	
+	public void setInput(String string) {
+		windowedPanel.getEditorPanel().setInput(string);;
 	}
 
 	/**

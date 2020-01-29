@@ -100,21 +100,21 @@ public class UtilitiesFactory {
 				"6- Supprimer l'évaluation dont le Date d'évaluation est '2011-01-27' et la note de 4.",
 				"DELETE FROM evaluation where DateEvaluation='2011-01-27' and note=4;");
 
-		// Join
+		// JOIN
 
-		jsonManager.addQuestion("films.db", "Join", "Question 1 ",
+		jsonManager.addQuestion("films.db", "JOIN", "Question 1 ",
 				"1-Donner le titre des films ayant obtenus une note>2",
 				"select titre from film inner join evaluation ON (film.mID=evaluation.mId) where EVALUATION.NOTE>2;");
-		jsonManager.addQuestion("films.db", "Join", "Question 2 ",
+		jsonManager.addQuestion("films.db", "JOIN", "Question 2 ",
 				"2-Afficher les film qui ont été noter par Sarah Martinez et qui ont la note de 4 ",
 				"select * from ( (film f inner join evaluation e ON (e.mID=f.mID) ) as fe inner join critique c ON (c.rID=fe.rID))  where c.nom='Sarah Martinez';");
-		jsonManager.addQuestion("films.db", "Join", "Question 3 ",
+		jsonManager.addQuestion("films.db", "JOIN", "Question 3 ",
 				"3-Donnez tous les films qui ont été evaluer entre le 01-01-2011 et le 15-01-2011 ",
 				"select * from film f inner join evaluation e ON (f.mID = e.mID) where dateEvaluation >'01-01-2011' and dateEvaluation<'15-01-2011';");
-		jsonManager.addQuestion("films.db", "Join", "Question 4 ",
+		jsonManager.addQuestion("films.db", "JOIN", "Question 4 ",
 				"4-Donner les notes du film critiqué par 'James Cameron'",
 				"select note from evaluation e , critique c where e.rID=c.rID and c.nom='James Cameron';");
-		jsonManager.addQuestion("films.db", "Join", "Question 5 ", "5-Quelle est la note du film 'Avatar'",
+		jsonManager.addQuestion("films.db", "JOIN", "Question 5 ", "5-Quelle est la note du film 'Avatar'",
 				"select note from Evaluation e inner join film f ON (e.mID=f.mID) where titre='Avatar';");
 
 		// COUNT/SUM
@@ -162,18 +162,18 @@ public class UtilitiesFactory {
 
 		// select dans select
 
-		jsonManager.addQuestion("films.db", "Select dans Select", "Question 1",
+		jsonManager.addQuestion("films.db", "SELECT dans SELECT", "Question 1",
 				"1- Indiquez le titre des films où l'année est superieure à celle du film Titanic",
 				"select titre from film where annee > (select annee from film where titre='Titanic');");
 
-		jsonManager.addQuestion("films.db", "Select dans Select", "Question 2 ",
+		jsonManager.addQuestion("films.db", "SELECT dans SELECT", "Question 2 ",
 				"2- Afficher tous les film dont le réalisateur est celui du film 'Snow White'",
 				"select * from film where realisateur=(select realisateur from film where titre='Snow White');");
-		jsonManager.addQuestion("films.db", "Select dans Select", "Question 3 ",
+		jsonManager.addQuestion("films.db", "SELECT dans SELECT", "Question 3 ",
 				"3- Donner le titre ainsi que l'année des films dont l'année de réalisation est inferieure à l'année de réalisation du film Avatar",
 				"select titre,annee from film where annee<(select annee from film where titre='Avatar');");
 
-		jsonManager.addQuestion("films.db", "Select dans Select", "Question 4",
+		jsonManager.addQuestion("films.db", "SELECT dans SELECT", "Question 4",
 				"4- Donnez les evaluations ayant obtenus la note maximum",
 				"select * from evaluation where note=(select max(note) from evaluation);");
 

@@ -27,6 +27,7 @@ public interface GetInformation {
 	public default ArrayList<String> getSubjects(String nameFile) {
 		JSONParser jsonParser = new JSONParser();
 		ArrayList<String> subjects = new ArrayList<>();
+		System.out.println(nameFile);
 
 		try {
 			FileReader reader = new FileReader(new File("resource/" + nameFile));
@@ -37,6 +38,7 @@ public interface GetInformation {
 			while (iterator.hasNext()) {
 				temp = iterator.next();
 				String subject = temp.get("sujet").toString();
+				System.out.println(subject);
 				if (!subjects.contains(subject))
 					subjects.add(subject);
 			}

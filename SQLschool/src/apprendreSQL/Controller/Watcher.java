@@ -11,8 +11,6 @@ import java.nio.file.WatchService;
 
 /**
  * This class watches for any change on .../resource and executes an action accordingly.
- * 
- * @author 675lt
  *
  */
 public class Watcher {

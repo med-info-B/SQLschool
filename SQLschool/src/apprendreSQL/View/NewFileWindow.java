@@ -4,7 +4,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,9 +22,7 @@ import apprendreSQL.Controller.JsonManager;
 
 public class NewFileWindow implements ActionListener, GetInformation, SimilarFunctions {
 
-	private ArrayList<String> subjects = new ArrayList<>(
-			Arrays.asList("SELECT", "INSERT", "DELETE", "UPDATE", "Join", "COUNT&SUM", "Select dans Select"));
-
+	private ArrayList<String> subjects = new ArrayList<>();
 	private JsonManager jsonManager;
 	private JFrame frmNouveauExercice;
 	private JLabel lblNo, lblBd, lblTitre, lblSujet, lblQuestion, lblRponse;
@@ -41,9 +40,10 @@ public class NewFileWindow implements ActionListener, GetInformation, SimilarFun
 	/**
 	 * @wbp.parser.entryPoint
 	 * 
-	 *This function creates the interface for the creation
-	 *of a new file
+	 *                        This function creates the interface for the creation
+	 *                        of a new file
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -106,6 +106,12 @@ public class NewFileWindow implements ActionListener, GetInformation, SimilarFun
 		comboBoxSujet.setBounds(276, 239, 336, 26);
 		frmNouveauExercice.getContentPane().add(comboBoxSujet);
 
+		for (String file : getJSONFiles())
+			for (String subject : getSubjects(file))
+				subjects.add(subject);
+		
+		subjects = (ArrayList<String>) subjects.stream().distinct().collect(toList());
+		
 		for (String name : subjects)
 			comboBoxSujet.addItem(name);
 
@@ -187,6 +193,11 @@ public class NewFileWindow implements ActionListener, GetInformation, SimilarFun
 	public void actionPerformed(ActionEvent e) {
 		initialize();
 
+	}
+
+	@SuppressWarnings("rawtypes")
+	private Collector toList() {
+		return Collectors.toList();
 	}
 
 	/**

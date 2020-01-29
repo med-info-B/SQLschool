@@ -358,11 +358,17 @@ public class FileModificationWindow implements ActionListener, GetInformation, S
 		for (String name : subjects)
 			comboSubject.addItem(name);
 
+		if(subjects.isEmpty())
+			comboSubject.addItem("Sujet");
+		
 		comboID.removeAllItems();
 		for (Integer id : getIDQuestion(comboFileName.getSelectedItem().toString(),jsonManager))
 			comboID.addItem(id);
-
-		questionInfo = displayQuestion(comboFileName.getSelectedItem().toString(), (int) comboID.getSelectedItem());
+		int idSelected=0;
+		if(comboID.getSelectedItem()!=null) {
+			idSelected = (int) comboID.getSelectedItem();
+		}
+		questionInfo = displayQuestion(comboFileName.getSelectedItem().toString(), idSelected);
 		textAreaQuestion.setText(questionInfo.get(0));
 		textAreaAnswer.setText(questionInfo.get(1));
 		comboSubject.setSelectedItem(questionInfo.get(2));
@@ -383,7 +389,7 @@ public class FileModificationWindow implements ActionListener, GetInformation, S
 		questionInfo = new ArrayList<>();
 		jsonManager.readFileQuestion("resource/" + nameFile);
 
-		if (jsonManager.getListQuestion().size() > id - 1) {
+		if (jsonManager.getListQuestion().size() > id - 1 && id>0) {
 			Question question = jsonManager.getListQuestion().get(id - 1);
 			questionInfo.add(question.getContentQuestion());
 			questionInfo.add(question.getAnswer());

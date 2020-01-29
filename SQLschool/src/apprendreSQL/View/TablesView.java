@@ -25,9 +25,9 @@ import apprendreSQL.Controller.EventManager;
  * 
  */
 
+@SuppressWarnings("serial")
 public class TablesView extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+	
 	private JScrollPane tablesViewScrollPane;
 	private JLabel tableLabel;
 	private JPanel view, menu;
@@ -39,7 +39,6 @@ public class TablesView extends JPanel {
 	private Object[][] data = {};
 
 	public TablesView(EventManager manager) {
-		super();
 		init(manager);
 	}
 
