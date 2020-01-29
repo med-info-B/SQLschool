@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -24,10 +25,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
-import apprendreSQL.Model.Table;
 import apprendreSQL.Controller.DiagramUtils;
 import apprendreSQL.Controller.EventManager;
 import apprendreSQL.Controller.UtilitiesFactory;
+import apprendreSQL.Model.Table;
 
 /**
  * This is the main frame that contains all the swing components of the
@@ -38,7 +39,6 @@ import apprendreSQL.Controller.UtilitiesFactory;
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener {
 
-	private static final String os = System.getProperty("os.name");
 	private static final String URL = "https://github.com/bayad-ne/SQLschool.git";
 	private static final String title = "SQLschool";
 	private static final int gap = 50;
@@ -52,6 +52,9 @@ public class MainWindow extends JFrame implements ActionListener {
 	public MainWindow(EventManager manager) {
 		super(title);
 		init(manager);
+		
+		this.setIconImage(new ImageIcon("resource//logo.png").getImage().getScaledInstance(400, 400,  java.awt.Image.SCALE_SMOOTH));
+		
 	}
 
 	/**
@@ -71,10 +74,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		tabs.add("Tables", tablesView);
 		tabs.add("Schéma relationnel", diagramsView);
-
-		if (os.toLowerCase().contains("windows")) {
-			tabs.setSelectedIndex(1);
-		}
 
 		panelSpliter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, windowedPanel, tabs);
 		panelSpliter.setDividerLocation((screenSize.height - gap * 2) / 2);
@@ -255,6 +254,11 @@ public class MainWindow extends JFrame implements ActionListener {
 	public void hideProgress() {
 		diagramsView.hideProgress();
 
+	}
+
+	public void updateTableModel() {
+		tablesView.updateTableModel();
+		
 	}
 
 }

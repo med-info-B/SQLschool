@@ -96,7 +96,7 @@ public class EventManager implements GetInformation {
 
 			return corrector.definehint(answer);
 
-		return "Il faut d'abord essayer d'écrire une requête et de l'éxecuter ;";
+		return "Il faut d'abord essayer d'écrire une requête et de l'exécuter ;";
 	}
 
 	/**
@@ -118,6 +118,8 @@ public class EventManager implements GetInformation {
 		} else {
 			mainWindow.setOutPut(text + "\n");
 		}
+		
+		mainWindow.updateTableModel();
 
 	}
 

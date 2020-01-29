@@ -109,7 +109,7 @@ public class EditorPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(EditorPanel.this, EventManager.callHint(), "Help",
+				JOptionPane.showMessageDialog(EditorPanel.this, EventManager.callHint(), "Aide",
 						JOptionPane.PLAIN_MESSAGE);
 
 			}

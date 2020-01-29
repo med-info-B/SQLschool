@@ -27,7 +27,7 @@ public interface SimilarFunctions {
 			comboBoxSujet.setVisible(false);
 			textField_sujet.setVisible(true);
 			textField_sujet.setText("");
-			btnNouveauSujet.setText("Liste de Sujet");
+			btnNouveauSujet.setText("Liste des Sujet");
 		} else {
 			if (!textField_sujet.getText().isEmpty()) {
 				subjects.add(textField_sujet.getText());

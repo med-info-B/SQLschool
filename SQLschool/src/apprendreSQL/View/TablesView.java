@@ -27,7 +27,7 @@ import apprendreSQL.Controller.EventManager;
 
 @SuppressWarnings("serial")
 public class TablesView extends JPanel {
-	
+
 	private JScrollPane tablesViewScrollPane;
 	private JLabel tableLabel;
 	private JPanel view, menu;
@@ -37,6 +37,7 @@ public class TablesView extends JPanel {
 	private String[] columnNames = { "" };
 	private ArrayList<Table> tableObjects;
 	private Object[][] data = {};
+	private EventManager manager;
 
 	public TablesView(EventManager manager) {
 		init(manager);
@@ -49,6 +50,7 @@ public class TablesView extends JPanel {
 	 *                between the different swing objects of our project
 	 */
 	private void init(EventManager manager) {
+		this.manager = manager;
 		this.view = new JPanel();
 		this.menu = new JPanel();
 		this.tableLabel = new JLabel("Table: ");
@@ -64,12 +66,7 @@ public class TablesView extends JPanel {
 		tablesViewScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		tablesList.addActionListener(e -> {
-			if (tablesList.getSelectedItem() != null) {
-				System.out.println("Table: " + tablesList.getSelectedItem().toString());
-
-				table.setModel(resultSetToTableModel(
-						manager.getTable(tableObjects.get(0).getDatabase(), tablesList.getSelectedItem().toString())));
-			}
+			updateTableModel();
 		});
 
 		setLayout(new GridBagLayout());
@@ -113,10 +110,10 @@ public class TablesView extends JPanel {
 	 * Returns a JTable model filled with data from the database.
 	 * 
 	 * @param rs ResultSet from which data is extracted
-	 * @return
+	 * @return a JTable model
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static DefaultTableModel resultSetToTableModel(ResultSet rs) {
+	public static DefaultTableModel getTableModel(ResultSet rs) {
 		try {
 			ResultSetMetaData data = rs.getMetaData();
 			int numberOfColumns = data.getColumnCount();
@@ -135,11 +132,27 @@ public class TablesView extends JPanel {
 				rows.addElement(newRow);
 			}
 
-			return new DefaultTableModel(rows, columnNames);
+			return new DefaultTableModel(rows, columnNames) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			};
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			return null;
+		}
+	}
+
+	/**
+	 * Updates the data on the table.
+	 */
+	public void updateTableModel() {
+		if (tablesList.getSelectedItem() != null) {
+			System.out.println("Table: " + tablesList.getSelectedItem().toString());
+			table.setModel(getTableModel(
+					manager.getTable(tableObjects.get(0).getDatabase(), tablesList.getSelectedItem().toString())));
 		}
 	}
 }
