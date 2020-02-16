@@ -1,3 +1,23 @@
+/*******************************************************************************
+ * 	Java tool with a GUI to help learn SQL
+ * 	
+ *     Copyright (C) 2020  Bayad Nasr-eddine, Bayol Thibaud, Benazzi Naima, 
+ *     Douma Fatima Ezzahra, Chaouche Sonia, Kanyamibwa Blandine
+ *     (thesqlschool@hotmail.com)
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *******************************************************************************/
 package apprendreSQL.Controller;
 
 import java.io.IOException;
@@ -35,6 +55,7 @@ public class EventManager implements GetInformation {
 		corrector = new Corrector();
 		mainWindow = new MainWindow(this);
 		new Watcher(this).observe();
+		printNotice();
 	}
 
 	/**
@@ -118,7 +139,7 @@ public class EventManager implements GetInformation {
 		} else {
 			mainWindow.setOutPut(text + "\n");
 		}
-		
+
 		mainWindow.updateTableModel();
 
 	}
@@ -245,7 +266,7 @@ public class EventManager implements GetInformation {
 	public static void clearOutput() {
 		mainWindow.setOutPut("");
 	}
-	
+
 	public void clearInput() {
 		mainWindow.setInput("");
 	}
@@ -306,6 +327,17 @@ public class EventManager implements GetInformation {
 	public void hideProgress() {
 		mainWindow.hideProgress();
 
+	}
+
+	public static void printNotice() {
+		System.out.println("############################################################################################## \r\n"
+				+ "    Sqlschool  Copyright (C) 2020  Bayad Nasr-eddine, Bayol Thibaud, Benazzi Naima, \r\n"
+				+ "    Douma Fatima Ezzahra, Chaouche Sonia, Kanyamibwa Blandine \r\n"
+				+ "    (thesqlschool@hotmail.com) \r\n\n"
+				+ "    This program comes with ABSOLUTELY NO WARRANTY; \r\n"
+				+ "    This is free software, and you are welcome to redistribute it \r\n"
+				+ "    under certain conditions; refer to the GNU General Public License for details. \r\n"
+				+ "############################################################################################## \n\n\n\n");
 	}
 
 }
