@@ -132,7 +132,7 @@ public class EventManager implements GetInformation {
 		String text = ifCorrect(query);
 
 		if (compteurrep == 4) {
-			mainWindow.setOutPut("Vous avez fait 3 tentatives. Voilà la bonne réponse <br> " + answer
+			mainWindow.setOutPut("Vous avez fait 3 tentatives. Voilà la bonne réponse <br> " + answer.replaceAll("<","&lt;")
 					+ " <br> Essayez de l'écrire et de l'exécuter");
 			compteurrep = 1;
 
